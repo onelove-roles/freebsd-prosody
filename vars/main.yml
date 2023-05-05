@@ -1,0 +1,4 @@
+---
+prosody_packages:
+  - name: prosody
+  - name: lua54-lualdap

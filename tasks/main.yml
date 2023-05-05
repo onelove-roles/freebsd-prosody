@@ -1,0 +1,22 @@
+---
+- name: install prosody packages
+  with_items: "{{ prosody_packages }}"
+  package:
+    name: "{{ item.name }}"
+    state: latest
+  notify:
+    - restart prosody
+
+- name: enable prosody service
+  template:
+    src: prosody.j2
+    dest: /etc/rc.conf.d/prosody
+  notify:
+    - restart prosody
+
+- name: configure prosody
+  template:
+    src: prosody.cfg.lua.j2
+    dest: /usr/local/etc/prosody/prosody.cfg.lua
+  notify:
+    - restart prosody
